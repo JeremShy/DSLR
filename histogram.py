@@ -20,7 +20,8 @@ def check_ok(array):
 
 def get_val(ls, fields):
 	if (check_ok(ls) == False):
-		return (False)
+		return (False, 0)
+	print fields + " for in get val"
 	rez = {}
 	rez["Gryffindor"] = {"tot" : 0.0, "mean" : 0.0, "count" : 0.0}
 	rez["Slytherin"] = {"tot" : 0.0, "mean" : 0.0, "count" : 0.0}
@@ -28,9 +29,10 @@ def get_val(ls, fields):
 	rez["Ravenclaw"] = {"tot" : 0.0, "mean" : 0.0, "count" : 0.0}
 	for d in ls:
 		for house, val in d.items():
-			if (val != ""):
-				rez[house]["tot"] += float(val)
-				rez[house]["count"] += 1
+			if (house == "Gryffindor" or house == "Slytherin" or house == "Hufflepuff" or house == "Ravenclaw"):
+				if (val != ""):
+					rez[house]["tot"] += float(val)
+					rez[house]["count"] += 1
 	for r in rez:
 		if (rez[r]["count"] != 0):
 			rez[r]["mean"] = rez[r]["tot"] / rez[r]["count"]
@@ -41,7 +43,7 @@ def get_val(ls, fields):
 	std += (rez["Ravenclaw"]["mean"] - mean) * (rez["Ravenclaw"]["mean"] - mean)
 	std /= 4
 	std = math.sqrt(std)
-	return (std)
+	return (True, std)
 
 def get_analysis(array, fields):
 	rez = []
@@ -52,8 +54,9 @@ def get_analysis(array, fields):
 		tmp = []
 		for dico in array:
 			tmp.append({dico["Hogwarts House"] : dico[f]})
-		tmp = get_val(tmp, f)
-		if (tmp != False):
+		b, tmp = get_val(tmp, f)
+		if (b != False):
+			print tmp
 			rez.append(tmp)
 			names.append(f)
 	return rez, names
