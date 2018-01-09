@@ -4,7 +4,6 @@ import csv
 import sys
 import math
 import matplotlib.pyplot as plt
-import numpy as np
 
 def check_ok(array):
 	notempty = False
@@ -95,7 +94,7 @@ print names
 plt.rcdefaults()
 fig, ax = plt.subplots( figsize=(35, 12))
 
-x_pos = np.arange(len(names))
+x_pos = range(len(names))
 
 # plt.hist(anal)
 ax.bar(x_pos, anal, align='center')
