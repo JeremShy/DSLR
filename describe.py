@@ -56,8 +56,6 @@ def get_ana_from_table(array, name):
 	del ret["tot"]
 	return ret
 
-
-
 def get_analysis(array, fields):
 	rez = []
 	for f in fields:
