@@ -19,30 +19,25 @@ def check_ok(array):
 def get_ana_from_table(array, name):
 	if (not check_ok(array)):
 		return False
-	ret = {"Count": 0.0, "Mean": 0.0, "Std": 0.0, "Min": array[0], "25%": 0.0, "50%": 0.0, "75%": 0.0, "Max": array[0], "tot": 0.0, "name": name}
-	ret = find_first_values(array, ret)
-	array.sort()
-	if (ret["Count"] % 2 == 1):
-		ret["50%"] = array[int(ret["Count"] / 2)]
-	else:
-		ret["50%"] = (array[int(ret["Count"] / 2) - 1] + array[int(ret["Count"] / 2)]) / 2
-	if (ret["Count"] % 4 == 0):
-		ret["25%"] = array[int(ret["Count"] / 4 - 1)]
- 		ret["75%"] = array[int(ret["Count"] / 4 * 3 - 1)]
-	else:
-		ret["25%"] = array[int(ret["Count"] / 4)]
-		ret["75%"] = array[int(ret["Count"] / 4 * 3)]
-
-	tot = 0
-	for val in array:
-		if (val == ""):
-			continue
-		tot += (val - ret["Mean"]) * (val - ret["Mean"])
-	tot = tot / (ret["Count"])
-	ret["Std"] = math.sqrt(tot)
-	del ret["tot"]
+	ret = []
+	for a in array:
+		ret.append(a)
 	return ret
 
+
+def get_analysis(array, fields):
+	rez = []
+	names = []
+	for f in fields:
+		if (f != "Index" and f != "Arithmancy"):
+			tmp = []
+			for dico in array:
+				tmp.append(dico[f])
+			tmp = get_ana_from_table(tmp, f)
+			if (tmp != False):
+				rez.append(tmp)
+				names.append(f)
+	return rez, names
 
 if (len(sys.argv) != 2):
 	print "Usage: " + sys.argv[0] + "file.csv"
@@ -70,3 +65,27 @@ for r in reader:
 			dico[fields[i]] = elem
 			i = i + 1
 		array.append(dico.copy())
+
+anal, names = get_analysis(array, fields)
+
+
+plt.rcdefaults()
+fig, ax = plt.subplots()
+
+x_pos = range(1, len(names) + 2)
+
+ax.set_xticks(x_pos)
+ax.set_xticklabels(names)
+ax.set_ylabel('Grades')
+ax.set_xlabel('Subject')
+ax.set_title('Pouet')
+
+i = 1
+for l in anal:
+	for item in l:
+		if (item != ""):
+			plt.scatter(i, float(item))
+	i += 1
+
+print "here"
+plt.show()
