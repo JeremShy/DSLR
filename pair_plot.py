@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import csv
 import sys
@@ -9,26 +9,32 @@ import matplotlib.gridspec as gridspec
 import numpy as np
 
 if (len(sys.argv) != 2):
-	print "Usage: " + sys.argv[0] + "file.csv"
+	print ("Usage: " + sys.argv[0] + "file.csv")
 	sys.exit()
 
 try:
 	csvfile = open(sys.argv[1], 'rb')
 except:
-	print "Error while trying to open " + sys.argv[1]
+	print ("Error while trying to open " + sys.argv[1])
 	sys.exit()
 
 reader = csv.reader(csvfile, delimiter=',')
 first = False
 
 array = []
+dico = dict()
 
 for r in reader:
 	if (first == False):
 		fields = r
 		first = True
 	else:
-		array.append(r)
+		i = 0
+		for elem in r:
+			dico[fields[i]] = elem
+			i = i + 1
+		array.append(dico.copy())
+
 
 nbr_features = len(array[0]) - 6
 ar = np.array(array)
@@ -39,7 +45,6 @@ color[color == 'Ravenclaw'] = 'b'
 color[color == 'Slytherin'] = 'g'
 color[color == 'Gryffindor'] = 'r'
 color[color == 'Hufflepuff'] = '#ffff00'
-# print color
 # print ar[:, 6:]
 ar = ar[:, 6:].astype(np.float64)
 # print ar

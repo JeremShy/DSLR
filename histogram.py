@@ -96,7 +96,6 @@ fig, ax = plt.subplots( figsize=(35, 12))
 
 x_pos = range(len(names))
 
-# plt.hist(anal)
 ax.bar(x_pos, anal, align='center')
 ax.set_xticks(x_pos)
 ax.set_xticklabels(names)
