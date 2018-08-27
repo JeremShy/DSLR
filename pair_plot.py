@@ -22,18 +22,13 @@ reader = csv.reader(csvfile, delimiter=',')
 first = False
 
 array = []
-dico = dict()
-
 for r in reader:
 	if (first == False):
 		fields = r
 		first = True
 	else:
-		i = 0
-		for elem in r:
-			dico[fields[i]] = elem
-			i = i + 1
-		array.append(dico.copy())
+		array.append(r)
+ar = np.array(array)
 
 
 nbr_features = len(array[0]) - 6
@@ -45,9 +40,9 @@ color[color == 'Ravenclaw'] = 'b'
 color[color == 'Slytherin'] = 'g'
 color[color == 'Gryffindor'] = 'r'
 color[color == 'Hufflepuff'] = '#ffff00'
+print color
 # print ar[:, 6:]
 ar = ar[:, 6:].astype(np.float64)
-# print ar
 
 # gs = gridspec.GridSpec(nbr_features, nbr_features)
 # gs.update(wspace=0.025, hspace=0.05)
@@ -55,7 +50,7 @@ ar = ar[:, 6:].astype(np.float64)
 fig, ax = plt.subplots(nbr_features, nbr_features)
 plt.subplots_adjust(wspace=0, hspace=0)
 plt.setp(ax, xticks=[], yticks=[])
-#
+
 for i in range(0, nbr_features):
 	for j in range(0, nbr_features):
 		if (i == j):
