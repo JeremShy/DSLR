@@ -1,11 +1,5 @@
-Index,Hogwarts House,First Name,Last Name,Birthday,Best Hand,Arithmancy
-0,Ravenclaw,Tamara,Hsu,2000-03-30,Left,58384.0
-1,Slytherin,Erich,Paredes,1999-10-14,Right,67239.0
-2,Ravenclaw,Stephany,Braun,1999-11-03,Left,23702.0
-3,Gryffindor,Vesta,Mcmichael,2000-08-19,Left,32667.0
-4,Gryffindor,Gaston,Gibbs,1998-09-27,Left,60158.0
-5,Ravenclaw,Tamara,Hsu,2000-03-30,Left,58384.0
-6,Slytherin,Erich,Paredes,1999-10-14,Right,67239.0
-7,Ravenclaw,Stephany,Braun,1999-11-03,Left,23702.0
-8,Gryffindor,Vesta,Mcmichael,2000-08-19,Left,32667.0
-9,Gryffindor,Gaston,Gibbs,1998-09-27,Left,60158.0
+Index,Hogwarts House,First Name,Last Name,Birthday,Best Hand,Arithmancy,Astronomy
+0,Ravenclaw,Tamara,Hsu,2000-03-30,Left,100.0,100
+1,Slytherin,Erich,Paredes,1999-10-14,Right,200.0,200
+2,Hufflepuff,Stephany,Braun,1999-11-03,Left,150.0,150
+3,Gryffindor,Vesta,Mcmichael,2000-08-19,Left,50.0,50

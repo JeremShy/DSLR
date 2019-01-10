@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 import csv
 import sys
@@ -40,8 +40,14 @@ color[color == 'Ravenclaw'] = 'b'
 color[color == 'Slytherin'] = 'g'
 color[color == 'Gryffindor'] = 'r'
 color[color == 'Hufflepuff'] = '#ffff00'
-print color
+print (color)
 # print ar[:, 6:]
+
+g = ar[ar[:, 1] == "Gryffindor"][:, 6:].astype(np.float64)
+s = ar[ar[:, 1] == "Slytherin"][:, 6:].astype(np.float64)
+r = ar[ar[:, 1] == "Ravenclaw"][:, 6:].astype(np.float64)
+h = ar[ar[:, 1] == "Hufflepuff"][:, 6:].astype(np.float64)
+
 ar = ar[:, 6:].astype(np.float64)
 
 # gs = gridspec.GridSpec(nbr_features, nbr_features)
@@ -58,9 +64,10 @@ for i in range(0, nbr_features):
 			x = x[~np.isnan(x)]
 			ax[i][j].hist(x)
 		else:
-			x = ar[:, i]
-			y = ar[:, j]
-			ax[i][j].scatter(x, y, color=color, s=0.5)
+			ax[i][j].scatter(g[:, i], g[:, j], color='r', s=.1)
+			ax[i][j].scatter(s[:, i], s[:, j], color='g', s=.1)
+			ax[i][j].scatter(r[:, i], r[:, j], color='b', s=.1)
+			ax[i][j].scatter(h[:, i], h[:, j], color='#ffff00', s=.1)
 
 i = 0
 for elem in ax[ : , 0]:
@@ -72,6 +79,6 @@ for elem in ax[nbr_features - 1, : ]:
 	elem.set_xlabel(fields[i + 6], size='x-small')
 	i = i + 1
 
-plt.figlegend(handles=[mpatches.Patch(color='r', label='Gryffindor'), mpatches.Patch(color='g', label='Slytherin'), mpatches.Patch(color='#ffff00', label='Hufflepuff'), mpatches.Patch(color='b', label='Ravenclaw')])
+# plt.figlegend(handles=[mpatches.Patch(color='r', label='Gryffindor'), mpatches.Patch(color='g', label='Slytherin'), mpatches.Patch(color='#ffff00', label='Hufflepuff'), mpatches.Patch(color='b', label='Ravenclaw')])
 
 plt.show()
