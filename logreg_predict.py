@@ -42,8 +42,8 @@ ar = np.array(array)
 print(ar)
 
 y = ar[ :, 1]
-y[y != "Gryffindor"] = 0.
-y[y == "Gryffindor"] = 1.
+y[y != "Slytherin"] = 0.
+y[y == "Slytherin"] = 1.
 y = y.astype(np.float64)
 
 ar[ar == ''] = 0 # TODO ATTENTION AUX NANS

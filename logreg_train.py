@@ -6,7 +6,6 @@ from math import *
 import numpy as np
 
 def sigmoid(x) :
-	# return x
 	return (1. / (1. + np.exp(-x)))
 
 def h(coef, features) :
@@ -65,8 +64,8 @@ ar = np.array(array)
 print(ar)
 
 y = ar[ :, 1]
-y[y != "Gryffindor"] = 0.
-y[y == "Gryffindor"] = 1.
+y[y != "Slytherin"] = 0.
+y[y == "Slytherin"] = 1.
 y = y.astype(np.float64)
 
 ar[ar == ''] = 0 # TODO ATTENTION AUX NANS
@@ -100,4 +99,4 @@ while (not stop):
 	# print(coef[1])
 
 print (coef)
-
+np.save("coef.npy", coef)
