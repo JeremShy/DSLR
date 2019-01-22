@@ -6,10 +6,10 @@ from math import *
 import numpy as np
 
 def sigmoid(x) :
+	# return x
 	return (1. / (1. + np.exp(-x)))
 
 def h(coef, features) :
-	print ((np.transpose(coef) @ features)[0])
 	return sigmoid((np.transpose(coef) @ features)[0])
 
 # def cost(data, coef, y):
@@ -24,6 +24,16 @@ def h(coef, features) :
 # 		print (cost)
 # 		i += 1
 # 	return (-cost / len(data))
+
+def scale(tab):
+	print (tab)
+	min = np.ndarray.min(tab)
+	max = np.ndarray.max(tab)
+	if (min == max):
+		min = 0
+	for (i, f) in enumerate(tab):
+		tab[i] = ((f - min) / (max - min)) * 2 - 1
+	return (tab)
 
 def	partial_derivative(j, data, coef, y):
 	cost = 0
@@ -62,19 +72,32 @@ y = y.astype(np.float64)
 ar[ar == ''] = 0 # TODO ATTENTION AUX NANS
 features = np.concatenate((np.ones((len(ar), 1)), ar[:, 6:].astype(np.float64)), axis=1)
 
+for i in range(np.size(features,1)):
+	features[ : , i] = scale(features[: , i])
+
+
 print(y)
 print(features)
 
 coef = np.zeros((len(features[0]), 1))
 print (coef)
 
-learning_rate = 1
-while (True):
+learning_rate = .1
+ok = .001
+stop = False
+
+while (not stop):
 	tmp = coef.copy()
+	stop = True
 	for i, c in enumerate(coef):
 		pd = partial_derivative(i, features, coef, y)
-		print("pd = " + str(pd))
+		# print("pd = " + str(pd))
 		tmp[i] = tmp[i] - learning_rate * pd
+		if (abs(tmp[i] - coef[i]) > ok):
+			stop = False;
 	coef = tmp
-	print(coef[0])
+	print (coef)
+	# print(coef[1])
+
+print (coef)
 
