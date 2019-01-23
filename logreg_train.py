@@ -101,7 +101,7 @@ for w in ["Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"]:
 	coef = np.zeros(len(features[0]))
 
 	learning_rate = 1
-	ok = .001
+	ok = .01
 	stop = False
 
 	while (not stop):
@@ -110,7 +110,6 @@ for w in ["Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"]:
 		if np.max(np.abs(coef - tmp)) < ok:
 			stop = True
 		coef = tmp
-		# print (coef)
 
 	print (coef)
 	np.save(w + "_coef.npy", coef)

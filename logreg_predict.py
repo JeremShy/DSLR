@@ -26,12 +26,6 @@ def get_coef(student, coef_g, coef_r, coef_s, coef_h):
 	guess_s = h(coef_s, student)
 	guess_h = h(coef_h, student)
 
-	print ("guess_g : " + str(guess_g))
-	print ("guess_r : " + str(guess_r))
-	print ("guess_s : " + str(guess_s))
-	print ("guess_h : " + str(guess_h))
-	print ("")
-
 	ok = max(guess_g, guess_r, guess_s, guess_h)
 	if (ok == guess_g):
 		return ("Gryffindor")
@@ -53,11 +47,6 @@ coef_h = np.load("Hufflepuff_coef.npy")
 min = np.load("min.npy")
 maxi = np.load("max.npy")
 
-
-print (coef_g)
-print (coef_r)
-print (coef_s)
-print (coef_h)
 
 try:
 	csvfile = open(sys.argv[1], 'r')
@@ -97,14 +86,16 @@ student = []
 for i, line in enumerate(features):
 	student.append(get_coef(line, coef_g, coef_r, coef_s, coef_h))
 
+print ("Index,Hogwarts House")
+
 for i, line in enumerate(features):
 	guess = get_coef(line, coef_g, coef_r, coef_s, coef_h)
-	if (guess == y[i]):
-		print ("[OK]")
-		ok += 1
-	else:
-		print ("[ERROR] : expected {" + str(y[i])+ "} got {" + guess + "}")
-		error += 1
+	print (str(i) + "," + guess)
+	# if (guess == y[i]):
+	# 	print ("[OK]")
+	# 	ok += 1
+	# else:
+	# 	print ("[ERROR] : expected {" + str(y[i])+ "} got {" + guess + "}")
+	# 	error += 1
 
 
-print (("OK percentage : ") + str((ok / (ok + error)) * 100))

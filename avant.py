@@ -11,23 +11,6 @@ def sigmoid(x) :
 def h(coef, features):
 	return sigmoid((np.transpose(coef) @ features))
 
-def scale(tab, min, max):
-	if (min == max):
-		min = 0
-	for (i, f) in enumerate(tab):
-		tab[i] = ((f - min) / (max - min)) * 2 - 1
-	return (tab)
-
-if (len(sys.argv) != 2):
-	print("Usage: " + sys.argv[0] + "file.csv")
-	sys.exit()
-
-coef = np.load("Ravenclaw_coef.npy")
-min = np.load("min.npy")
-max = np.load("max.npy")
-print (coef)
-
-
 
 try:
 	csvfile = open(sys.argv[1], 'r')
@@ -57,9 +40,6 @@ y = y.astype(np.float64)
 
 ar[ar == ''] = 0 # TODO ATTENTION AUX NANS
 features = np.concatenate((np.ones((len(ar), 1)), ar[:, 6:].astype(np.float64)), axis=1)
-
-for i in range(np.size(features,1)):
-	features[ : , i] = scale(features[: , i], min[i], max[i])
 
 ok = 0
 error = 0
