@@ -11,20 +11,6 @@ def sigmoid(x) :
 def h(coef, features) :
 	return sigmoid(features.T @ coef)
 
-# def cost(data, coef, y):
-# 	cost = 0.
-# 	i = 0
-# 	for features in data:
-# 		print ("(y[i]) = " + str(type(1 - y[i])))
-# 		print ("(features) = " + str((features)))
-# 		print ("(log : ) = " + str(type(np.log(1. - h(coef, features)))))
-# 		print ((1. - y[i]) * np.log(1. - h(coef, features)))
-# 		cost += (y[i] * np.log(h(coef, features))) + ((1. - y[i]) * np.log(1. - h(coef, features)))
-# 		print (cost)
-# 		i += 1
-# 	return (-cost / len(data))
-
-
 def update_coefs(features, y, coefs, lr):
 	N = len(features)
 
@@ -86,17 +72,14 @@ for i in range(np.size(features,1)):
 	features[ : , i], t_min, t_max = scale(features[: , i])
 	min.append(t_min)
 	max.append(t_max)
-np.save("min.npy", min)
-np.save("max.npy", max)
 
+to_save = {"min" : min, "max" : max}
 
 for w in ["Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"]:
 	y = ar[ :, 1].copy()
 	y[y != w] = 0.
 	y[y == w] = 1.
 	y = y.astype(np.float64)
-
-	print (y)
 
 	coef = np.zeros(len(features[0]))
 
@@ -110,6 +93,7 @@ for w in ["Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"]:
 		if np.max(np.abs(coef - tmp)) < ok:
 			stop = True
 		coef = tmp
+	print(coef)
+	to_save[w] = coef
 
-	print (coef)
-	np.save(w + "_coef.npy", coef)
+np.savez("params.npz", **to_save)

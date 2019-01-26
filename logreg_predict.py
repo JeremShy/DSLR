@@ -40,12 +40,14 @@ if (len(sys.argv) != 2):
 	print("Usage: " + sys.argv[0] + "file.csv")
 	sys.exit()
 
-coef_g = np.load("Gryffindor_coef.npy")
-coef_r = np.load("Ravenclaw_coef.npy")
-coef_s = np.load("Slytherin_coef.npy")
-coef_h = np.load("Hufflepuff_coef.npy")
-min = np.load("min.npy")
-maxi = np.load("max.npy")
+params = np.load("params.npz")
+
+coef_g = params["Gryffindor"]
+coef_r = params["Ravenclaw"]
+coef_s = params["Slytherin"]
+coef_h = params["Hufflepuff"]
+min = params["min"]
+maxi = params["max"]
 
 
 try:
@@ -66,7 +68,6 @@ for r in reader:
 	else:
 		array.append(r)
 ar = np.array(array)
-print(ar)
 
 
 
