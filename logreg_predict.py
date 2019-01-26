@@ -50,6 +50,7 @@ min = params["min"]
 maxi = params["max"]
 
 
+
 try:
 	csvfile = open(sys.argv[1], 'r')
 except:
