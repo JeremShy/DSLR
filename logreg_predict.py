@@ -36,11 +36,15 @@ def get_coef(student, coef_g, coef_r, coef_s, coef_h):
 	elif (ok == guess_h):
 		return ("Hufflepuff")
 
-if (len(sys.argv) != 2):
-	print("Usage: " + sys.argv[0] + "file.csv")
+if (len(sys.argv) != 3):
+	print("Usage: " + sys.argv[0] + "file.csv params.npz")
 	sys.exit()
 
-params = np.load("params.npz")
+try:
+	params = np.load(sys.argv[2])
+except:
+	sys.exit(0)
+
 
 coef_g = params["Gryffindor"]
 coef_r = params["Ravenclaw"]
@@ -53,8 +57,9 @@ maxi = params["max"]
 
 try:
 	csvfile = open(sys.argv[1], 'r')
-except:
-	print("Error while trying to open " + sys.argv[1])
+	houses = open("houses.csv", 'w+')
+except Exception as e:
+	print("An error occured while opening a file : " + str(e))
 	sys.exit()
 
 
@@ -88,16 +93,12 @@ student = []
 for i, line in enumerate(features):
 	student.append(get_coef(line, coef_g, coef_r, coef_s, coef_h))
 
-print ("Index,Hogwarts House")
+
+houses.write("Index,Hogwarts House\n")
 
 for i, line in enumerate(features):
 	guess = get_coef(line, coef_g, coef_r, coef_s, coef_h)
-	print (str(i) + "," + guess)
-	# if (guess == y[i]):
-	# 	print ("[OK]")
-	# 	ok += 1
-	# else:
-	# 	print ("[ERROR] : expected {" + str(y[i])+ "} got {" + guess + "}")
-	# 	error += 1
+	houses.write(str(i) + "," + guess + "\n")
+
 
 
